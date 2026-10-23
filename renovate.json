@@ -1,0 +1,8 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "enabledManagers": ["maven"],
+  "bumpVersion": "patch",
+  "packageRules": [
+    {"matchUpdateTypes": ["minor", "patch"], "groupName": "all non-major"}
+  ]
+}
