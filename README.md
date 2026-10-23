@@ -24,4 +24,6 @@ Results and the generated POM are saved in the run directory. The assertions req
 
 The fix defers the project-version bump until dependency edits finish and makes a repeated Maven version bump a no-op. The `renovate.json` file also describes the corresponding ordinary Renovate configuration; current registry versions are not needed by the deterministic runner.
 
+Verified on Windows with Node 24.22.1 against Renovate commit `a45ee254dc3a7d512f4467174fc9b5503bbf481a`: the unmodified updater produces invalid XML; the local patch produces valid XML matching all four expected version changes.
+
 Prepared with Codex (GPT-6); the source code and runtime assertions are available for inspection. No claim of a hosted GitLab or Maven build run is made.

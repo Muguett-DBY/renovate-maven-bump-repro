@@ -18,13 +18,14 @@ await fs.mkdir(work);
 
 const load = (file) => import(pathToFileURL(path.join(source, file)).href);
 const { GlobalConfig } = await load('lib/config/global.ts');
+await (await load('lib/logger/index.ts')).init();
 const git = await load('lib/util/git/index.ts');
 const { extractAllPackageFiles } = await load('lib/modules/manager/maven/extract.ts');
 const { getUpdatedPackageFiles } = await load('lib/workers/repository/update/branch/get-updated.ts');
 const { XmlDocument } = createRequire(path.join(source, 'package.json'))('xmldoc');
 
 GlobalConfig.set({ localDir: work, cacheDir: path.join(run, 'cache'), platform: 'github', binarySource: 'global' });
-await git.initRepo({ repository: 'local-maven-reproduction', gitUrl: fixture, currentBranch: 'main' });
+await git.initRepo({ url: fixture, defaultBranch: 'main', currentBranch: 'main' });
 await git.syncGit();
 const original = await fs.readFile(path.join(work, 'pom.xml'), 'utf8');
 const [pkg] = await extractAllPackageFiles({}, ['pom.xml']);
